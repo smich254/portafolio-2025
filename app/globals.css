@@ -2,26 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+/* Fuente personalizada */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply font-sans text-gray-900 antialiased;
+  background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Contenedor del canvas Matrix */
+.matrix-bg-container {
+  @apply fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none;
+}
+
+/* Botón estándar */
+.btn {
+  @apply px-4 py-2 font-semibold rounded transition-colors;
+  @apply bg-blue-600 text-white; /* color de fondo azul primario, texto blanco */
+}
+.btn:hover {
+  @apply bg-blue-700;
+}
+
+/* Botón con borde */
+.btn-outline {
+  @apply px-4 py-2 font-semibold rounded border;
+  @apply border-blue-600 text-blue-600 bg-transparent;
+}
+.btn-outline:hover {
+  @apply bg-blue-600 text-white;
+}
+
+/* Secciones principales */
+.section {
+  @apply py-8 px-4 md:px-8 bg-white bg-opacity-80 rounded-lg shadow-lg backdrop-blur-md;
+  margin: auto;
+  max-width: 1200px;
+}
+
+.section-header {
+  @apply text-3xl md:text-4xl font-bold text-blue-800 mb-6 text-center;
+}
+
+.section-text {
+  @apply text-base text-blue-900;
+}
+
+/* Tipografía mejorada */
+.heading-lg {
+  @apply text-4xl font-extrabold text-blue-800;
+}
+.text-muted {
+  @apply text-blue-700 opacity-80;
+}
+
+/* Estilos para el formulario de contacto */
+.contact-form {
+  @apply max-w-lg mx-auto p-6 bg-white bg-opacity-90 rounded-lg shadow-lg;
+}
+
+.contact-form label {
+  @apply block text-lg font-medium text-gray-700 mb-2;
+}
+
+.contact-input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600;
+}
+
+.contact-textarea {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none;
+}
+
+.contact-button {
+  @apply w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-all;
+}
+
+/* Estilo para la tarjeta de proyecto */
+.project-card {
+  @apply bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden flex flex-col backdrop-blur-md;
+}
+
+/* Imagen de la tarjeta */
+.project-card__img {
+  @apply object-cover w-full h-48;
+}
+
+/* Contenido de la tarjeta */
+.project-card__content {
+  @apply p-4 flex flex-col flex-grow;
+}
+
+/* Título de la tarjeta */
+.project-card__title {
+  @apply text-xl font-semibold text-gray-800 mb-2;
+}
+
+/* Descripción del proyecto */
+.project-card__description {
+  @apply text-gray-600 flex-grow;
+}
+
+/* Etiqueta de tecnología */
+.tech-badge {
+  @apply text-xs bg-gray-200 text-gray-800 rounded-full px-2 py-1 mr-2 mb-2 inline-block;
+}
+
+/* Contenedor de enlaces */
+.project-card__links {
+  @apply mt-auto pt-2 flex space-x-3;
+}
+
+/* Estilo para enlaces (demo y código) */
+.link {
+  @apply text-blue-600 hover:underline flex items-center transition-colors;
 }
