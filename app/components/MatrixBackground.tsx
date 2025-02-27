@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-const CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzあいうえおカキクケコ"; // Caracteres variados
+const CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzあいうえおカキクケコ";
 
 interface MatrixBackgroundProps {
   opacity?: number;
@@ -15,6 +15,9 @@ export default function MatrixBackground({ opacity = 0.5, enabled = true }: Matr
 
   useEffect(() => {
     if (!enabled) return;
+
+    const container = containerRef.current; // Guardar la referencia en una variable local
+    if (!container) return;
 
     // Inicializar escena, cámara y renderizador
     const scene = new THREE.Scene();
@@ -33,13 +36,13 @@ export default function MatrixBackground({ opacity = 0.5, enabled = true }: Matr
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.domElement.style.pointerEvents = "none";
     renderer.domElement.style.opacity = String(opacity);
-    containerRef.current?.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement); // Usar la variable local
 
     // Configuración del efecto Matrix
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d")!;
-    const fontSize = 10; // Reducido para más caracteres en pantalla
-    const columns = Math.floor(window.innerWidth / fontSize); 
+    const fontSize = 10;
+    const columns = Math.floor(window.innerWidth / fontSize);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     ctx.fillStyle = "#000";
@@ -47,10 +50,7 @@ export default function MatrixBackground({ opacity = 0.5, enabled = true }: Matr
     ctx.font = `${fontSize}px monospace`;
     ctx.fillStyle = "#00FF00";
 
-    // Preparar caracteres iniciales en cada columna
     const drops: number[] = Array(columns).fill(Math.random() * canvas.height);
-
-    // Textura de Three.js a partir del canvas
     const texture = new THREE.CanvasTexture(canvas);
     texture.minFilter = THREE.LinearFilter;
     const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
@@ -59,9 +59,8 @@ export default function MatrixBackground({ opacity = 0.5, enabled = true }: Matr
     const plane = new THREE.Mesh(geometry, material);
     scene.add(plane);
 
-    // Función para actualizar el efecto Matrix
     function updateMatrixRain() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // Ajuste para mejorar la estela
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#0f0";
       ctx.font = `${fontSize}px monospace`;
@@ -106,7 +105,9 @@ export default function MatrixBackground({ opacity = 0.5, enabled = true }: Matr
       material.dispose();
       texture.dispose();
       scene.clear();
-      containerRef.current?.removeChild(renderer.domElement);
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
     };
   }, [enabled, opacity]);
 
