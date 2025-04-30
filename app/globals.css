@@ -78,6 +78,48 @@ body {
   @apply w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-all;
 }
 
+/* Estilos mejorados para botones */
+.btn {
+  @apply bg-blue-600 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:bg-blue-700 transition-all duration-300 border-2 border-blue-600;
+}
+
+.btn-outline {
+  @apply bg-transparent text-blue-600 font-semibold py-2 px-6 rounded-full shadow-md hover:bg-blue-600 hover:text-white transition-all duration-300 border-2 border-blue-600;
+}
+
+/* Mejoras para texto sobre fondo oscuro */
+.text-shadow {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.text-shadow-sm {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.hover\:shadow-glow:hover {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8));
+}
+
+.nav-link {
+  @apply text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 relative;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #2563eb; /* blue-600 */
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
 /* Estilo para la tarjeta de proyecto */
 .project-card {
   @apply bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden flex flex-col backdrop-blur-md;
